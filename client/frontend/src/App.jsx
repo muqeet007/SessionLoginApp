@@ -7,20 +7,24 @@ import Register from './components/Register.jsx'
 import Navbar from './components/Navbar.jsx'
 import Profile from './components/Profile.jsx'
 import Dashboard from './components/Dashboard.jsx'
+import {Routes,Route} from 'react-router-dom'
+import Layout from './components/Layout.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      {/* <Login/> */}
-      {/* <Register/> */}
+      <Routes>
+          <Route element={<Layout/>}>
+              <Route path='/profile' element={<Profile/>}/>
+              <Route path='/dashboard' element={<Dashboard/>}/>
+          </Route>
 
-      {/* <Navbar/> */}
 
-      {/* <Profile/> */}
-
-      {/* <Dashboard/> */}
+          <Route path='/' element={<Login/>}/>
+          <Route path='/register' element={<Register/>}/>
+      </Routes>
     </>
   )
 }
