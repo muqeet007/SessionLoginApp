@@ -1,6 +1,21 @@
 import React from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+
+
 
 const Dashboard = () => {
+
+    const {user}=useContext(AuthContext)
+    if (!user) {
+      return (
+        <section className="flex flex-col justify-center antialiased bg-gray-50 text-gray-600 min-h-screen p-4">
+          <div className="h-full flex items-center justify-center">
+            <div className="text-xl text-gray-700">Loading user data...</div>
+          </div>
+        </section>
+      );
+    }
   return (
     <section className="flex flex-col justify-center antialiased bg-gray-50 text-gray-600 min-h-screen p-4">
       <div className="h-full">
@@ -34,12 +49,12 @@ const Dashboard = () => {
               <div className="flex-grow truncate">
                 {/* Header */}
                 <div className="w-full sm:flex justify-between items-center mb-3">
-                  <h2 className="text-2xl leading-snug font-extrabold text-gray-50 truncate mb-1 sm:mb-0">
-                    Simple Design Tips
-                  </h2>
-                  <h2 className="text-2xl leading-snug font-extrabold text-gray-50 truncate mb-1 sm:mb-0">
-                    Simple Design Tips
-                  </h2>
+                <h2>
+  {user && user.name ? user.name : "No name"}
+</h2>
+<h2>
+  {user && user.email ? user.email : "No email"}
+</h2>
                   {/* Buttons */}
                   <div className="flex-shrink-0 flex items-center space-x-3 sm:ml-2">
                     {/* Like */}

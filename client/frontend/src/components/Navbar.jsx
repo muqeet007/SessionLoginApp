@@ -13,10 +13,10 @@ const Navbar = () => {
           </div>
           <div className='flex space-x-3.5'>
             <div className="space-x-6 flex items-center">
-            <a href="#" className="text-white hover:text-gray-200 font-medium">
+            <a href="/profile" className="text-white hover:text-gray-200 font-medium">
               Profile
             </a>
-            <a href="#" className="text-white hover:text-gray-200 font-medium">
+            <a href="/dashboard" className="text-white hover:text-gray-200 font-medium">
               Dashboard
             </a>
           </div>

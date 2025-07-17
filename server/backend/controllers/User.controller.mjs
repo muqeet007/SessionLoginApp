@@ -1,5 +1,5 @@
 import { createNewUser, findUserByEmail } from '../models/user.models.mjs'
-import bycrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs'
 export const Me=(req,res)=>
 {
     
@@ -33,7 +33,7 @@ export const Register=async(req,res)=>
         else
         {
             // Hashing the password
-            const hashedpassword=await bycrypt.hash(password,10)
+            const hashedpassword=await bcrypt.hash(password,10)
             // Creating a user 
             await createNewUser({name,email,password:hashedpassword})
             return res.status(200).json(
@@ -72,7 +72,7 @@ export const Login=async (req,res)=>
 
     // Checking password entered by the user
 
-    const isMatch=await bycrypt.compare(password,user.password)
+    const isMatch=await bcrypt.compare(password,user.password)
 
     // if password not matched send corresponding response
     if(!isMatch) return res.status(400).json({message:"Invalid Credentials."})
@@ -86,7 +86,7 @@ export const Login=async (req,res)=>
             name:user.name
         }
     
-        res.status(200).json({ msg: 'Login successful', user: req.session.user })
+        res.status(200).json({ message: 'Login successful', user: req.session.user })
     }   
     }
 

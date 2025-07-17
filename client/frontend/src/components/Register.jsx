@@ -1,6 +1,43 @@
+import axios from 'axios';
 import React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+
+    const [name,setName]=useState("")
+    const [email,setEmail]=useState("")
+    const [password,setPassword]=useState("")
+    const [message,setMessage]=useState("")
+    const [errormessage,setErrorMessage]=useState("")
+
+    const navigate=useNavigate()
+    const AxiosRegisterPost=async()=>
+    {
+        try
+        {
+            const response=await axios.post('/api/users/register',{name,email,password})
+
+            if(response.data.message)
+            {
+                setMessage(response.data.message)
+            }
+
+            setErrorMessage("")
+            navigate('/')
+        }
+        catch(error)
+        {
+            setErrorMessage(error.response?.data?.message || "Registration Failed")
+        }
+    }
+
+    const handleRegister=(e)=>
+    {
+        e.preventDefault()
+        AxiosRegisterPost()
+    }
+
   return (
     <div className="bg-gradient-to-br from-purple-700 to-pink-500 min-h-screen flex flex-col justify-center items-center">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
@@ -8,7 +45,9 @@ function Register() {
           Welcome to  <br/>
           <span className='text-pink-600'>Session Login App</span>
         </h1>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleRegister}>
+            {errormessage && <p className=''>{errormessage}</p>}
+            {message && <p className=''>{message}</p>}
           <div>
             <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
               Name
@@ -19,6 +58,7 @@ function Register() {
               name="name"
               type="text"
               placeholder='Your name here'
+              onChange={e=>setName(e.target.value)}
             />
           </div>
           <div>
@@ -31,6 +71,7 @@ function Register() {
               name="email"
               type="email"
               placeholder='Your Email here'
+              onChange={e=>setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -43,6 +84,7 @@ function Register() {
               name="password"
               type="password"
               placeholder='Your password here'
+              onChange={e=>setPassword(e.target.value)}
             />
           </div>
           <div>
